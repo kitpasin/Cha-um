@@ -4,7 +4,7 @@ import { FooterData } from "../../data/footer/FooterData";
 export default function Footer() {
   return (
     <footer>
-      <div className="bg-[url('/images/footer/bg.png')] xs:bg-[url('/images/footer/dec-bg.png')] bg-cover bg-center relative p-4">
+      <div className="bg-[url('/images/footer/dec-bg-2.png')] xs:bg-[url('/images/footer/dec-bg-1.png')] bg-cover bg-center relative p-4">
         <div
           className="xs:hidden z-0"
           style={{

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { ListsData } from "../../../../data/product/material&tool/ListsData";
 import { Link } from "react-router-dom";
+import { Pagination } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { Pagination, PaginationItem } from "@mui/material";
 
 export default function Lists() {
   const [hoveredImage, setHoveredImage] = useState(null);
@@ -47,7 +47,7 @@ export default function Lists() {
         <div
           data-aos="fade-right"
           data-aos-duration="1000"
-          className="grid grid-cols-4 max-xl:grid-cols-2 gap-12 xl:gap-24 mt-12"
+          className="grid grid-cols-4 max-xl:grid-cols-2 gap-x-12 xl:gap-x-24 gap-y-8 mt-12"
         >
           {listsToDisplay.map((list) => (
             <Link
@@ -71,6 +71,7 @@ export default function Lists() {
                 </div>
 
                 <img
+                  className="rounded-full"
                   src={list.image}
                   alt={list.title}
                   width={"auto"}
@@ -78,7 +79,7 @@ export default function Lists() {
                 />
               </figure>
               <div className="text-center">
-                <p className="mt-4 text-[18px] xl:text-[22px] font-[500]">
+                <p className="mt-2 text-[18px] xl:text-[22px] font-[500] leading-5">
                   {list.title}
                 </p>
                 <p className="text-[#4C873C] xl:text-[18px]">{list.price}</p>

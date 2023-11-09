@@ -83,7 +83,7 @@ export default function Example() {
           <div className="flex items-center gap-4">
             <Link
               to="#"
-              className="bg-[#004500] max-xl:bg-[#537A53] hover:scale-125 w-fit flex items-center gap-2 p-2 rounded-[5px] text-[#fff] text-[18px] transition-all ease-in-out duration-300"
+              className="bg-[#004500] max-xl:bg-[#537A53] hover:scale-110 w-fit flex items-center gap-2 p-2 rounded-[5px] text-[#fff] text-[18px] transition-all ease-in-out duration-300"
             >
               Detail <InsertDriveFileIcon />
             </Link>

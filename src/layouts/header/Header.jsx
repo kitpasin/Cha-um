@@ -35,8 +35,8 @@ export default function Header({ windowWidth }) {
   }
 
   function handleCloseSubMenu() {
-    setIsBurgurOpen(!isBurgurOpen)
-    setActiveSubmenu(null)
+    setIsBurgurOpen(!isBurgurOpen);
+    setActiveSubmenu(null);
   }
 
   return (
@@ -63,14 +63,14 @@ export default function Header({ windowWidth }) {
                     isBurgurOpen &&
                     "opacity-100 translate-x-0 pointer-events-auto"
                   }`
-            } bg-[#fff] w-full max-xl:max-w-[50%] max-md:max-w-[100%] h-full max-xl:fixed top-0 max-xl:top-[70px] right-0 flex flex-col xl:flex-row justify-start xl:justify-end items-start xl:items-center gap-0 xl:gap-8 max-xl:border-l-[1px] z-50 max-xl:shadow-md max-xl:overflow-auto max-xl:transition-all ease-in-out duration-300`}
+            } bg-[#fff] w-full max-xl:max-w-[50%] max-xs:max-w-[100%] h-full max-xl:fixed top-0 max-xl:top-[70px] right-0 flex flex-col xl:flex-row justify-start xl:justify-end items-start xl:items-center gap-0 xl:gap-8 max-xl:border-l-[1px] z-50 max-xl:shadow-md max-xl:overflow-auto max-xl:transition-all ease-in-out duration-300`}
           >
             {HeaderData.map((menu, index, array) => (
               // เช็ค url ทำ active เมนู
               <li
                 onClick={(event) => event.stopPropagation()}
                 key={menu.id}
-                className={`max-xl:w-full max-xl:h-fit ${
+                className={`max-xl:w-full max-xl:h-fit relative ${
                   location.pathname === menu.url && "text-[#004500]"
                 } ${
                   location.pathname.includes("/product") &&
@@ -101,6 +101,26 @@ export default function Header({ windowWidth }) {
                   "border-t-0 border-b-[1px]"
                 } hover:text-[#004500] h-full relative flex items-center px-1`}
               >
+                {/* เช็ค url ทำเส้นเขียวใต้เมนู */}
+                <div
+                  className={`${location.pathname === menu.url && "w-full"} ${
+                    location.pathname.includes("/product") &&
+                    menu.id === 2 &&
+                    "w-full"
+                  } ${
+                    location.pathname.includes("/service") &&
+                    menu.id === 3 &&
+                    "w-full"
+                  } ${
+                    location.pathname.includes("/process") &&
+                    menu.id === 4 &&
+                    "w-full"
+                  } ${
+                    location.pathname.includes("/etc") &&
+                    menu.id === 5 &&
+                    "w-full"
+                  } bg-[#004500] h-[3px] absolute bottom-0 left-0`}
+                />
                 {/* ปิดเบอร์เกอร์และเมนู หลังจากคลิกเมนูที่ไม่มีเมนูย่อย */}
                 <Link
                   onClick={() =>

@@ -6,6 +6,11 @@ import Footer from "./layouts/footer/Footer";
 import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
 import MaterialAndTool from "./pages/product/material&tool/MaterialAndTool"
+import Specie from "./pages/product/specie/Specie";
+import MaterialAndToolDetail from "./pages/product/material&tool/detail/MaterialAndToolDetail";
+import SpecieDetail from "./pages/product/specie/detail/SpecieDetail";
+import Portfolio from "./pages/portfolio/Portfolio";
+import PortfolioDetail from "./pages/portfolio/detail/PortfolioDetail"
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -46,9 +51,17 @@ export default function App() {
         <>
           <Header windowWidth={windowWidth} />
           <Routes>
+            {/* Home */}
             <Route path="/" element={<Home />} />
+            {/* Product */}
             <Route path="/product" element={<Product />} />
             <Route path="/product/material&tool" element={<MaterialAndTool />} />
+            <Route path="/product/material&tool/:id" element={<MaterialAndToolDetail />} />
+            <Route path="/product/specie" element={<Specie />} />
+            <Route path="/product/specie/:id" element={<SpecieDetail />} />
+            {/* Portfolio */}
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:id" element={<PortfolioDetail />} />
           </Routes>
           <Footer />
         </>

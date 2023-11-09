@@ -20,14 +20,14 @@ export default function Submenu() {
             <Link to={menu.url}>
               <figure className="rounded-full overflow-hidden">
                 <img
-                  className="rounded-full hover:scale-125 transition-all ease-in-out duration-300"
+                  className="rounded-full hover:scale-110 transition-all ease-in-out duration-300"
                   src={menu.image}
                   alt={menu.title}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
-              <p className="mt-4 text-[18px] xl:text-[22px] font-[500] hover:underline leading-5">
+              <p className="mt-2 text-[18px] xl:text-[22px] font-[500] hover:underline leading-5">
                 {menu.title}
               </p>
             </Link>

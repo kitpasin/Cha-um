@@ -62,7 +62,7 @@ export default function Recoment() {
                   height={"auto"}
                 />
               </figure>
-              <p className="mt-4 text-[18px] xl:text-[22px] font-[500]">
+              <p className="mt-2 text-[18px] xl:text-[22px] font-[500] leading-5">
                 {list.title}
               </p>
               <p className="text-[#4C873C] xl:text-[18px]">{list.price}</p>

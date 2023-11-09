@@ -22,7 +22,7 @@ export const HeaderData = [
       },
       {
         id: 3,
-        title: "พันธ์ุพืช และพันธ์ุสัตว์",
+        title: "พันธ์ุพืชและพันธ์ุสัตว์",
         url: "/product/specie",
       },
       {

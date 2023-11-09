@@ -62,7 +62,7 @@ export default function Service() {
         </div>
         <Link
           to="#"
-          className="bg-[#004500] max-xl:bg-[#537A53] w-fit flex items-center gap-2 m-auto p-2 rounded-[5px] hover:scale-125 text-[#fff] text-[18px] transition-all ease-in-out duration-300"
+          className="bg-[#004500] max-xl:bg-[#537A53] w-fit flex items-center gap-2 m-auto p-2 rounded-[5px] hover:scale-110 text-[#fff] text-[18px] transition-all ease-in-out duration-300"
         >
           More
           <AddRoundedIcon />
