@@ -7,7 +7,7 @@ import axios from "axios";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function MaterialAndToolDetail() {
+export default function PorfolioDetail() {
   const [profolioDetail, setPorfolioDetail] = useState([]);
 
   // main image modal
@@ -179,36 +179,36 @@ export default function MaterialAndToolDetail() {
                   height={"auto"}
                 />
               </figure>
-              <Modal
-                open={openSubImage}
-                onClose={handleCloseSubImage}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box className="bg-[#fff] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-none">
-                  <div className="relative">
-                    <div
-                      onClick={handleCloseSubImage}
-                      className="absolute top-0 -right-12 cursor-pointer"
-                    >
-                      <HighlightOffRoundedIcon
-                        sx={{ color: "#fff", fontSize: "36px" }}
-                      />
-                    </div>
-                    <figure>
-                      <img
-                        src={currentSubImage}
-                        alt={filteredPortfolioDetail[0].title}
-                        width={"auto"}
-                        height={"auto"}
-                      />
-                    </figure>
-                  </div>
-                </Box>
-              </Modal>
             </div>
           ))}
         </div>
+        <Modal
+          open={openSubImage}
+          onClose={handleCloseSubImage}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="bg-[#fff] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-none">
+            <div className="relative">
+              <div
+                onClick={handleCloseSubImage}
+                className="absolute top-0 -right-12 cursor-pointer"
+              >
+                <HighlightOffRoundedIcon
+                  sx={{ color: "#fff", fontSize: "36px" }}
+                />
+              </div>
+              <figure>
+                <img
+                  src={currentSubImage}
+                  alt={filteredPortfolioDetail[0].title}
+                  width={"auto"}
+                  height={"auto"}
+                />
+              </figure>
+            </div>
+          </Box>
+        </Modal>
       </div>
     </div>
   );

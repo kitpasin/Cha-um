@@ -11,6 +11,19 @@ import MaterialAndToolDetail from "./pages/product/material&tool/detail/Material
 import SpecieDetail from "./pages/product/specie/detail/SpecieDetail";
 import Portfolio from "./pages/portfolio/Portfolio";
 import PortfolioDetail from "./pages/portfolio/detail/PortfolioDetail"
+import Service from "./pages/service/Service"
+import Park from "./pages/service/park/Park"
+import ParkDetail from "./pages/service/park/detail/ParkDetail";
+import AirsideAndLandside from "./pages/service/airside&landside/AirsideAndLandside"
+import AirsideAndLandsideDetail from "./pages/service/airside&landside/detail/AirsideAndLandsideDetail";
+import Process from "./pages/process/Process"
+import Turnkey from "./pages/process/turnkey/Turnkey"
+import Landscape from "./pages/process/landscape/Landscape"
+import Planting from "./pages/process/planting/Planting";
+import Maintenance from "./pages/process/maintenance/Maintenance";
+import Design from "./pages/etc/design/Design"
+import DesignDetail from "./pages/etc/design/detail/DesignDetail";
+import Contact from "./pages/etc/contact/Contact";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -62,6 +75,23 @@ export default function App() {
             {/* Portfolio */}
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+            {/* Service */}
+            <Route path="/service" element={<Service />} />
+            <Route path="/service/park" element={<Park />} />
+            <Route path="/service/park/:id" element={<ParkDetail />} />
+            <Route path="/service/airside&landside/" element={<AirsideAndLandside />} />
+            <Route path="/service/airside&landside/:id" element={<AirsideAndLandsideDetail />} />
+            {/* Process */}
+            <Route path="/process" element={<Process />} />
+            <Route path="/process/turnkey" element={<Turnkey />} />
+            <Route path="/process/landscape" element={<Landscape />} />
+            <Route path="/process/planting" element={<Planting />} />
+            <Route path="/process/maintenance" element={<Maintenance />} />
+            {/* Design */}
+            <Route path="/etc/design" element={<Design />} />
+            <Route path="/etc/design/:id" element={<DesignDetail />} />
+            {/* Contact */}
+            <Route path="/etc/contact" element={<Contact />} />
           </Routes>
           <Footer />
         </>

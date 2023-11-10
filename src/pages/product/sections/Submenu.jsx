@@ -13,7 +13,7 @@ export default function Submenu() {
       <div
         data-aos="fade-right"
         data-aos-duration="1000"
-        className="max-w-[650px] xl:max-w-[1280px] grid grid-cols-2 xl:grid-cols-4 gap-12 xl:gap-24 m-auto text-center"
+        className="max-w-[650px] xl:max-w-[1280px] grid grid-cols-2 xl:grid-cols-4 gap-x-12 xl:gap-x-24 gap-y-8 m-auto text-center"
       >
         {SubmenuData.map((menu) => (
           <div key={menu.id}>

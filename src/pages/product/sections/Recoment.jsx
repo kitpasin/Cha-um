@@ -14,7 +14,7 @@ export default function Recoment() {
 
   return (
     <div className="bg-[#FAFAFA] relative px-4 pt-12 pb-12 md:pb-36 xl:pb-60">
-      <figure className="absolute bottom-0 max-md:hidden">
+      <figure className="absolute bottom-0 left-0 max-md:hidden">
         <img
           src="/images/product/recoment/dec-b.png"
           alt=""
@@ -32,7 +32,7 @@ export default function Recoment() {
         <div
           data-aos="fade-right"
           data-aos-duration="1000"
-          className="grid grid-cols-2 xl:grid-cols-4 gap-12 xl:gap-24 mt-12 text-center"
+          className="grid grid-cols-2 xl:grid-cols-4 gap-x-12 xl:gap-x-24 gap-y-8 mt-12 text-center"
         >
           {RecomentData.lists.map((list) => (
             <Link

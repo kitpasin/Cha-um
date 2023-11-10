@@ -41,7 +41,7 @@ export const HeaderData = [
   {
     id: 4,
     title: "บริการของเรา",
-    url: null,
+    url: "/service",
     submenu: [
       {
         id: 1,
@@ -88,7 +88,7 @@ export const HeaderData = [
   {
     id: 5,
     title: "ขั้นตอนการทำงาน",
-    url: null,
+    url: "/process",
     submenu: [
       {
         id: 1,
@@ -98,7 +98,7 @@ export const HeaderData = [
       {
         id: 2,
         title: "Landscape Design Services",
-        url: "/process/lanscape",
+        url: "/process/landscape",
       },
       {
         id: 3,

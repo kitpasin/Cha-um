@@ -15,7 +15,7 @@ export default function Portfolio() {
 
   return (
     <div className="relative px-4 pt-12 pb-12 md:pb-24 xl:pb-36">
-      <figure className="absolute bottom-0 max-md:hidden">
+      <figure className="absolute bottom-0 left-0 max-md:hidden">
         <img
           src="/images/home/portfolio/dec-b.png"
           alt=""

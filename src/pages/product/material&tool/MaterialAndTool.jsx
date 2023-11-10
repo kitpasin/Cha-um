@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Banner from "./sections/Banner";
 import Lists from "./sections/Lists";
 
-export default function Product() {
+export default function MaterialAndTool() {
   return (
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}

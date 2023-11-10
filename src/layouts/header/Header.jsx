@@ -57,13 +57,13 @@ export default function Header({ windowWidth }) {
               windowWidth < 1280
                 ? `${
                     !isBurgurOpen &&
-                    "opacity-0 translate-x-1/2 pointer-events-none"
+                    "opacity-0 translate-x-[100%] pointer-events-none"
                   }`
                 : `${
                     isBurgurOpen &&
                     "opacity-100 translate-x-0 pointer-events-auto"
                   }`
-            } bg-[#fff] w-full max-xl:max-w-[50%] max-xs:max-w-[100%] h-full max-xl:fixed top-0 max-xl:top-[70px] right-0 flex flex-col xl:flex-row justify-start xl:justify-end items-start xl:items-center gap-0 xl:gap-8 max-xl:border-l-[1px] z-50 max-xl:shadow-md max-xl:overflow-auto max-xl:transition-all ease-in-out duration-300`}
+            } bg-[#fff] w-full max-xl:max-w-[50%] max-xs:max-w-[100%] h-full max-xl:fixed top-0 max-xl:top-[70px] right-0 flex flex-col xl:flex-row justify-start xl:justify-end items-start xl:items-center gap-0 xl:gap-8 max-xl:border-l-[1px] z-50 max-xl:shadow-md max-xl:overflow-auto max-xs:opacity-90 max-xl:transition-all ease-in-out duration-300`}
           >
             {HeaderData.map((menu, index, array) => (
               // เช็ค url ทำ active เมนู
@@ -78,15 +78,15 @@ export default function Header({ windowWidth }) {
                   "text-[#004500]"
                 } ${
                   location.pathname.includes("/service") &&
-                  menu.id === 3 &&
-                  "text-[#004500]"
-                } ${
-                  location.pathname.includes("/process") &&
                   menu.id === 4 &&
                   "text-[#004500]"
                 } ${
-                  location.pathname.includes("/etc") &&
+                  location.pathname.includes("/process") &&
                   menu.id === 5 &&
+                  "text-[#004500]"
+                } ${
+                  location.pathname.includes("/etc") &&
+                  menu.id === 6 &&
                   "text-[#004500]"
                 }  ${windowWidth < 1280 && index === 0 && "border-y-[1px]"} 
                 ${
@@ -109,15 +109,15 @@ export default function Header({ windowWidth }) {
                     "w-full"
                   } ${
                     location.pathname.includes("/service") &&
-                    menu.id === 3 &&
-                    "w-full"
-                  } ${
-                    location.pathname.includes("/process") &&
                     menu.id === 4 &&
                     "w-full"
                   } ${
-                    location.pathname.includes("/etc") &&
+                    location.pathname.includes("/process") &&
                     menu.id === 5 &&
+                    "w-full"
+                  } ${
+                    location.pathname.includes("/etc") &&
+                    menu.id === 6 &&
                     "w-full"
                   } bg-[#004500] h-[3px] absolute bottom-0 left-0`}
                 />

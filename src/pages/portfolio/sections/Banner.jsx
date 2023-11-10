@@ -19,7 +19,7 @@ export default function Banner() {
           height={"auto"}
         />
       </figure>
-      <div className="bg-[url('/images/product/banner/dec-bg.png')] bg-[#618861] bg-cover bg-center px-4 py-12 text-[#fff] text-center">
+      <div className="bg-[url('/images/portfolio/banner/dec-bg.png')] bg-[#618861] bg-cover bg-center px-4 py-12 text-[#fff] text-center">
         <h1 className="hidden">ชอุ่ม 2021 จำกัด | CHA UM 2021 CO.,LTD</h1>
         <div data-aos="fade-up" data-aos-duration="1000">
           <p className="text-4xl font-[500]">{BannerData.title}</p>

@@ -29,7 +29,7 @@ export default function Lists() {
 
   return (
     <div className="relative px-4 pt-12 pb-12 md:pb-36 xl:pb-60">
-      <figure className="absolute bottom-0 max-md:hidden">
+      <figure className="absolute bottom-0 left-0 max-md:hidden">
         <img
           src="/images/product/specie/lists/dec-b.png"
           alt=""
