@@ -31,7 +31,7 @@ export default function Lists() {
     <div className="relative px-4 pt-12 pb-12 md:pb-36 xl:pb-60">
       <figure className="absolute bottom-0 left-0 max-md:hidden">
         <img
-          src="/images/product/material&tool/lists/dec-b.png"
+          src="/images/service/park/lists/dec-b.png"
           alt=""
           width={"auto"}
           height={"auto"}

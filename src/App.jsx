@@ -24,6 +24,22 @@ import Maintenance from "./pages/process/maintenance/Maintenance";
 import Design from "./pages/etc/design/Design"
 import DesignDetail from "./pages/etc/design/detail/DesignDetail";
 import Contact from "./pages/etc/contact/Contact";
+import Equipment from "./pages/product/equipment/Equipment";
+import EquipmentDetail from "./pages/product/equipment/detail/EquipmentDetail";
+import Packaging from "./pages/product/pakaging/Packing";
+import PackagingDetail from "./pages/product/pakaging/detail/PackagingDetail";
+import Improve from "./pages/service/improve/Improve";
+import ImproveDetail from "./pages/service/improve/detail/ImproveDetail";
+import Garden from "./pages/service/garden/Garden"
+import GardenDetail from "./pages/service/garden/detail/GardenDetail";
+import Cleaning from "./pages/service/cleaning/Cleaning"
+import CleaningDetail from "./pages/service/cleaning/detail/CleaningDetail";
+import Protect from "./pages/service/protect/Protect"
+import ProtectDetail from "./pages/service/protect/detail/ProtectDetail";
+import Solarcell from "./pages/service/solarcell/Solarcell"
+import SolarcellDetail from "./pages/service/solarcell/detail/SolarcellDetail";
+import PruningAndCutdown from "./pages/service/pruning&cutdown/PruningAndCutdown"
+import PruningAndCutdownDetail from "./pages/service/pruning&cutdown/detail/PruningAndCutdownDetail"
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -70,8 +86,12 @@ export default function App() {
             <Route path="/product" element={<Product />} />
             <Route path="/product/material&tool" element={<MaterialAndTool />} />
             <Route path="/product/material&tool/:id" element={<MaterialAndToolDetail />} />
+            <Route path="/product/equipment" element={<Equipment />} />
+            <Route path="/product/equipment/:id" element={<EquipmentDetail />} />
             <Route path="/product/specie" element={<Specie />} />
             <Route path="/product/specie/:id" element={<SpecieDetail />} />
+            <Route path="/product/packaging" element={<Packaging />} />
+            <Route path="/product/packaging/:id" element={<PackagingDetail />} />
             {/* Portfolio */}
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:id" element={<PortfolioDetail />} />
@@ -79,8 +99,20 @@ export default function App() {
             <Route path="/service" element={<Service />} />
             <Route path="/service/park" element={<Park />} />
             <Route path="/service/park/:id" element={<ParkDetail />} />
-            <Route path="/service/airside&landside/" element={<AirsideAndLandside />} />
+            <Route path="/service/airside&landside" element={<AirsideAndLandside />} />
             <Route path="/service/airside&landside/:id" element={<AirsideAndLandsideDetail />} />
+            <Route path="/service/improve" element={<Improve />} />
+            <Route path="/service/improve/:id" element={<ImproveDetail />} />
+            <Route path="/service/garden" element={<Garden />} />
+            <Route path="/service/garden/:id" element={<GardenDetail />} />
+            <Route path="/service/cleaning" element={<Cleaning />} />
+            <Route path="/service/cleaning/:id" element={<CleaningDetail />} />
+            <Route path="/service/protect" element={<Protect />} />
+            <Route path="/service/protect/:id" element={<ProtectDetail />} />
+            <Route path="/service/solarcell" element={<Solarcell />} />
+            <Route path="/service/solarcell/:id" element={<SolarcellDetail />} />
+            <Route path="/service/pruning&cutdown" element={<PruningAndCutdown />} />
+            <Route path="/service/pruning&cutdown/:id" element={<PruningAndCutdownDetail />} />
             {/* Process */}
             <Route path="/process" element={<Process />} />
             <Route path="/process/turnkey" element={<Turnkey />} />
