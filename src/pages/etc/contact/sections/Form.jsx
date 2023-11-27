@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import axios from "axios";
 
 export default function Form() {
@@ -9,22 +10,45 @@ export default function Form() {
   const [message, setMessage] = useState("");
 
   // ตัวอย่างการใช้ axios post contact message
-  // async function postContactMessage() {
-  //     const formData = {
-  //         name : name,
-  //         email : email,
-  //         subject : subject,
-  //         message : message
-  //     }
-  //     if (formData) {
-  //         await axios.post("http://localhost:3000/etc/contact", formData)
-  //         .then((response) => {
-  //             console.log(response)
-  //         })
-  //     } else {
-  //         alert("All input must be filled!")
-  //     }
-  // }
+  async function handleSendMessage() {
+    const formData = {
+      name: name,
+      email: email,
+      subject: subject,
+      message: message,
+    };
+    if (name && email && subject && message) {
+      await axios
+        .post(
+          `http://localhost:8000/api/backoffice/v1/message/create`,
+          formData
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "ส่งข้อความสำเร็จ!",
+              text: "เราจะทำการติดต่อคุณกลับในภายหลัง",
+              showConfirmButton: true,
+              confirmButtonColor: "#004500",
+            });
+          }
+        });
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "กรุณากรอกข้อมูลให้ครบถ้วน",
+        showConfirmButton: true,
+        confirmButtonColor: "#004500",
+      });
+    }
+  }
 
   return (
     <div className="relative px-4 pt-12 pb-12 md:pb-36 lg:pb-48 xl:pb-60">
@@ -37,47 +61,66 @@ export default function Form() {
         />
       </figure>
       <div className="max-w-[1280px] m-auto">
-        <p data-aos="fade-up" data-aos-duration="1000" className="text-4xl font-[500] pb-12">กรอกข้อมูลของคุณ</p>
+        <p
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          className="text-4xl font-[500] pb-12"
+        >
+          กรอกข้อมูลของคุณ
+        </p>
         <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4">
-          <div data-aos="fade-right" data-aos-duration="1000" className="flex flex-col gap-4 xl:text-[18px] font-[500]">
+          <div
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            className="flex flex-col gap-4 xl:text-[18px] font-[500]"
+          >
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="name">Name</label>
                 <input
+                  // ย้าย value ไปเก็บไว่ใน state name
+                  onChange={(event) => setName(event.target.value)}
                   type="text"
                   placeholder="Name..."
-                  className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px]"
+                  className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px] font-[300]"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="e-mail">E-mail</label>
                 <input
+                  // ย้าย value ไปเก็บไว่ใน state email
+                  onChange={(event) => setEmail(event.target.value)}
                   type="text"
                   placeholder="E-mail..."
-                  className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px]"
+                  className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px] font-[300]"
                 />
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="subject">Subject</label>
               <input
+                // ย้าย value ไปเก็บไว่ใน state subject
+                onChange={(event) => setSubject(event.target.value)}
                 type="text"
                 placeholder="Subject..."
-                className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px]"
+                className="h-[40px] border-[#9E9E9E] border-[1px] pl-2 rounded-[5px] font-[300]"
               />
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="message">Message</label>
               <textarea
-                name="message"
-                id="message"
+                // ย้าย value ไปเก็บไว่ใน state message
+                onChange={(event) => setMessage(event.target.value)}
                 cols="30"
                 rows="5"
                 placeholder="Message..."
-                className="border-[#9E9E9E] border-[1px] pl-2 rounded-[5px]"
+                className="border-[#9E9E9E] border-[1px] pl-2 rounded-[5px] font-[300]"
               />
             </div>
-            <button className="w-fit bg-[#004500] m-auto px-8 py-2 text-[#fff] text-[18px] rounded-[5px] hover:scale-110 transition-all ease-in-out duration-300">
+            <button
+              onClick={handleSendMessage}
+              className="w-fit bg-[#004500] m-auto px-8 py-2 text-[#fff] text-[18px] rounded-[5px] hover:scale-110 transition-all ease-in-out duration-300"
+            >
               Send
             </button>
           </div>
@@ -103,9 +146,18 @@ export default function Form() {
               Line ID : <span className="font-[300]">Residential</span>
             </p>
           </div>
-          <div data-aos="fade-left" data-aos-duration="1000" className="xl:text-[18px]">
+          <div
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            className="xl:text-[18px]"
+          >
             <figure>
-                <img src="/images/etc/contact/form/logo.png" alt="Logo" width={"auto"} height={"auto"} />
+              <img
+                src="/images/etc/contact/form/logo.png"
+                alt="Logo"
+                width={"auto"}
+                height={"auto"}
+              />
             </figure>
             <p className="my-4 font-[500]">Cha Um 2021 CO.,LTD</p>
             <p className="flex flex-col">

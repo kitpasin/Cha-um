@@ -12,6 +12,7 @@ export default function Contact() {
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"
+          data-rh="true"
         />
         <link rel="canonical" href="/etc/contact" />
       </Helmet>

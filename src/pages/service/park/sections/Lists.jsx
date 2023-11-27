@@ -6,15 +6,15 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Lists() {
+export default function Lists({ host, services }) {
   const [hoveredImage, setHoveredImage] = useState(null);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const pageCount = Math.ceil(ListsData.length / itemsPerPage);
+  const pageCount = Math.ceil(services.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const listsToDisplay = ListsData.slice(startIndex, endIndex);
+  const listsToDisplay = services.slice(startIndex, endIndex);
 
   useEffect(() => {
     Aos.init();
@@ -26,6 +26,8 @@ export default function Lists() {
       top: 0,
     });
   }, [currentPage]);
+
+  console.log(services)
 
   return (
     <div className="relative px-4 pt-12 pb-12 md:pb-36 xl:pb-60">
@@ -45,16 +47,16 @@ export default function Lists() {
         >
           {listsToDisplay.map((list) => (
             <Link
-              onMouseEnter={() => setHoveredImage(list.id)}
+              onMouseEnter={() => setHoveredImage(list?.id)}
               onMouseLeave={() => setHoveredImage(null)}
-              to={list.url}
-              key={list.id}
+              to={`/${list?.slug}/${list?.id}`}
+              key={list?.id}
             >
               <figure className="relative">
                 <div
                   style={{
                     background: `linear-gradient(180deg, transparent 0%, rgb(161, 196, 78))`,
-                    opacity: hoveredImage === list.id ? "100%" : "0",
+                    opacity: hoveredImage === list?.id ? "100%" : "0",
                     transition: "all ease-in-out 0.3s",
                     textShadow: "3px 3px 5px #000",
                   }}
@@ -65,17 +67,18 @@ export default function Lists() {
                 </div>
 
                 <img
-                  src={list.image}
-                  alt={list.title}
+                  className="w-[248px] h-[248px] m-auto object-cover"
+                  src={`${host}${list?.thumbnail_link}`}
+                  alt={list?.thumbnail_alt || ''}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
               <div>
                 <p className="mt-2 text-[18px] xl:text-[22px] font-[500] leading-5">
-                  {list.title}
+                  {list?.title}
                 </p>
-                <p className="xl:text-[18px] font-[300]">{list.type}</p>
+                <p className="xl:text-[18px] font-[300]">{list?.type}</p>
               </div>
             </Link>
           ))}

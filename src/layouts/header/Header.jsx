@@ -1,14 +1,48 @@
 import { Link, useLocation } from "react-router-dom";
-import { HeaderData } from "../../data/header/HeaderData";
+import { HeaderData } from "../../data/header/HeaderData"; // mock data
 import { useEffect, useState, useRef } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import axios from "axios";
+import { PulseLoader } from "react-spinners";
 
-export default function Header({ windowWidth }) {
+export default function Header({ host, windowWidth }) {
+  const [loading, setLoading] = useState(true);
+  const [menus, setMenus] = useState([]);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [isBurgurOpen, setIsBurgurOpen] = useState(false);
   const submenuRef = useRef(null);
   const location = useLocation();
 
+  // เรียกใช้ api แล้วเก็บ data ไว้ใน state menus
+  async function getCategories() {
+    try {
+      const response = await axios.get(
+        `${host}api/backoffice/v1/categories/read`
+      );
+      const data = response.data.data;
+      setMenus(data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  }
+  useEffect(() => {
+    getCategories().then(() => setLoading(false));
+  }, []);
+
+  // เปิด/ปิดเมนูย่อยโดยการเช็คไอดีของ activeSubmenu กับ menu
+  function handleOpenSubmenu(menu) {
+    if (activeSubmenu === menu.id) {
+      // ปิดเมนูย่อย
+      setActiveSubmenu(null);
+    } else {
+      // เปิดเมนูย่อย
+      setActiveSubmenu(menu.id);
+    }
+  }
+  function handleCloseSubMenu() {
+    setIsBurgurOpen(!isBurgurOpen);
+    setActiveSubmenu(null);
+  }
   // ตรวจจับเมาส์ถ้า user คลิกพื้นที่อื่นนอกจากเมนูย่อย ปิดเมนูย่อย
   useEffect(() => {
     function handleClickOutside(event) {
@@ -23,21 +57,12 @@ export default function Header({ windowWidth }) {
     };
   }, []);
 
-  // เปิด/ปิดเมนูย่อยโดยการเช็คไอดีของ activeSubmenu กับ menu
-  function handleOpenSubmenu(menu) {
-    if (activeSubmenu === menu.id) {
-      // ปิดเมนูย่อย
-      setActiveSubmenu(null);
-    } else {
-      // เปิดเมนูย่อย
-      setActiveSubmenu(menu.id);
+  // ใช้ mock data ถ้ายังโหลดไม่เสร็จ
+  useEffect(() => {
+    if (loading) {
+      setMenus(HeaderData)
     }
-  }
-
-  function handleCloseSubMenu() {
-    setIsBurgurOpen(!isBurgurOpen);
-    setActiveSubmenu(null);
-  }
+  }, [])
 
   return (
     <header className="bg-[#fff] sticky top-0 w-full h-[70px] max-w-[1900px] px-4 shadow-md z-50">
@@ -65,7 +90,7 @@ export default function Header({ windowWidth }) {
                   }`
             } bg-[#fff] w-full max-xl:max-w-[50%] max-xs:max-w-[100%] h-full max-xl:fixed top-0 max-xl:top-[70px] right-0 flex flex-col xl:flex-row justify-start xl:justify-end items-start xl:items-center gap-0 xl:gap-8 max-xl:border-l-[1px] z-50 max-xl:shadow-md max-xl:overflow-auto max-xs:opacity-90 max-xl:transition-all ease-in-out duration-300`}
           >
-            {HeaderData.map((menu, index, array) => (
+            {menus.map((menu, index, array) => (
               // เช็ค url ทำ active เมนู
               <li
                 onClick={(event) => event.stopPropagation()}
@@ -75,6 +100,10 @@ export default function Header({ windowWidth }) {
                 } ${
                   location.pathname.includes("/product") &&
                   menu.id === 2 &&
+                  "text-[#004500]"
+                } ${
+                  location.pathname.includes("/portfolio") &&
+                  menu.id === 3 &&
                   "text-[#004500]"
                 } ${
                   location.pathname.includes("/service") &&
@@ -106,6 +135,10 @@ export default function Header({ windowWidth }) {
                   className={`${location.pathname === menu.url && "w-full"} ${
                     location.pathname.includes("/product") &&
                     menu.id === 2 &&
+                    "w-full"
+                  } ${
+                    location.pathname.includes("/portfolio") &&
+                    menu.id === 3 &&
                     "w-full"
                   } ${
                     location.pathname.includes("/service") &&
@@ -186,7 +219,7 @@ export default function Header({ windowWidth }) {
                   height={"auto"}
                 />
               </Link>
-              <Link to="#">
+              <Link to="https://www.facebook.com/rachane999/" target="_blank">
                 <img
                   src="/icons/facebook.png"
                   alt="Facebook icon"

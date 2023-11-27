@@ -9,7 +9,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Example() {
+export default function Example({ host, example }) {
   const [hoveredImage, setHoveredImage] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Example() {
         <Link
           onMouseEnter={() => setHoveredImage(true)}
           onMouseLeave={() => setHoveredImage(false)}
-          to="#"
+          to={`/${example?.slug}/${example?.id}`}
           data-aos="fade-right"
           data-aos-duration="1000"
           className="max-w-[650px] relative m-auto overflow-hidden"
@@ -48,8 +48,8 @@ export default function Example() {
             <VisibilityIcon sx={{ fontSize: "30px" }} />
           </div>
           <img
-            src={ExampleData.image}
-            alt={ExampleData.title}
+            src={`${host}${example?.thumbnail_link}`}
+            alt={example?.thumbnail_alt || ""}
             width={"auto"}
             height={"auto"}
           />
@@ -59,9 +59,11 @@ export default function Example() {
           data-aos-duration="1000"
           className="h-full max-xl:max-w-[650px] flex flex-col justify-between gap-4 m-auto text-[#fff] max-xl:text-[#000] z-10"
         >
-          <p className="text-[18px] xl:text-[22px] font-[500] max-xl:hidden">ตัวอย่างผลงาน</p>
+          <p className="text-[18px] xl:text-[22px] font-[500] max-xl:hidden">
+            ตัวอย่างผลงาน
+          </p>
           <p className="max-xl:text-[#537A53] text-4xl font-[500]">
-            {ExampleData.title}
+            {example?.title}
           </p>
           <div className="flex items-center gap-12 xl:text-[18px] leading-5">
             <div className="flex flex-col gap-4 flex-none">
@@ -73,16 +75,25 @@ export default function Example() {
               <p className="flex justify-between font-[500]">ประเภท :</p>
             </div>
             <div className="flex flex-col items-start gap-4 font-[300]">
-              <p>{ExampleData.address}</p>
-              <p>{ExampleData.size}</p>
-              <p>{ExampleData.status}</p>
-              <p>{ExampleData.type}</p>
+              <p>{example?.address}</p>
+              <p>{example?.size}</p>
+              <p>{example?.status}</p>
+              <p>{example?.type}</p>
             </div>
           </div>
-          <p className="xl:text-[18px] font-[300] leading-5">{ExampleData.description}</p>
+          <p className="xl:text-[18px] font-[300] leading-5">
+            {example?.content
+              ?.substring(0, 150)
+              .replace("<p>", "")
+              .replace("</p>", "")
+              .replace("<strong>", "")
+              .replace("</strong>", "")
+              .replace("<em>", "")
+              .replace("</em>", "") + "..."}
+          </p>
           <div className="flex items-center gap-4">
             <Link
-              to="#"
+              to={`/${example?.slug}/${example?.id}`}
               className="bg-[#004500] max-xl:bg-[#537A53] hover:scale-110 w-fit flex items-center gap-2 p-2 rounded-[5px] text-[#fff] text-[18px] transition-all ease-in-out duration-300"
             >
               Detail <InsertDriveFileIcon />

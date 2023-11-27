@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { AboutData } from "../../../data/home/AboutData";
 import Aos from "aos";
 import "aos/dist/aos.css";
-export default function About() {
+export default function About({ host, homeData }) {
   useEffect(() => {
     Aos.init();
   }, []);
@@ -32,33 +32,33 @@ export default function About() {
           className="text-center"
         >
           <p className="max-xl:text-[#618861] text-4xl font-[700]">
-            {AboutData.title}
+            {homeData[1]?.title || AboutData.title}
           </p>
-          <p className="text-[18px] xl:text-[22px]">{AboutData.description}</p>
+          <p className="text-[18px] xl:text-[22px]">{homeData[1]?.description || AboutData.description}</p>
         </div>
         <div
           data-aos="fade-right"
           data-aos-duration="1000"
           className="max-xl:max-w-[650px] grid grid-cols-1 xl:grid-cols-3 gap-4 mt-12 m-auto"
         >
-          {AboutData.lists.map((list) => (
+          {homeData[1]?.subpost.map((post) => (
             <div
-              key={list.id}
+              key={post?.id}
               className="flex flex-col items-center text-center gap-4"
             >
               <figure className="w-[48px] h-[48px]">
                 <img
                   className="w-full h-full"
-                  src={list.icon}
-                  alt={list.title}
+                  src={`${host}${post?.image_link}`}
+                  alt={post?.image_description}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
               <p className="text-[#4C873C] text-[18px] xl:text-[22px] font-[700]">
-                {list.title}
+                {post?.image_title}
               </p>
-              <p className="xl:text-[18px] leading-5">{list.description}</p>
+              <p className="xl:text-[18px] leading-5">{post?.image_description}</p>
             </div>
           ))}
         </div>

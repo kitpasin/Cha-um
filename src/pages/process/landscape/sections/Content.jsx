@@ -3,7 +3,7 @@ import { ContentData } from "../../../../data/process/landscape/ContentData";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Content() {
+export default function Content({ process }) {
   useEffect(() => {
     Aos.init();
   }, []);
@@ -22,19 +22,9 @@ export default function Content() {
         data-aos="fade-right"
         data-aos-duration="1000"
         className="max-w-[1280px] m-auto xl:text-[18px]"
-      >
-        {ContentData.map((content, index) => (
-          <div key={content.id} className={`${index > 0 && "mt-2"}`}>
-            <p>{content.title}</p>
-            {content.descriptions.map((content) => (
-              <div key={content.id} className="flex gap-4 pl-4">
-                <p>{"•"}</p>
-                <p>{content.description}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+        // render ckeditor in backoffice
+        dangerouslySetInnerHTML={{ __html: process?.content }}
+      />
     </div>
   );
 }

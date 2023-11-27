@@ -6,7 +6,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Service() {
+export default function Service({ host, homeService }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
@@ -25,18 +25,18 @@ export default function Service() {
           data-aos-duration="1000"
           className="grid grid-cols-4 max-xl:grid-cols-2 gap-4"
         >
-          {ServiceData.lists.map((list) => (
+          {homeService?.map((service) => (
             <Link
-              onMouseEnter={() => setHoveredImage(list.id)}
+              onMouseEnter={() => setHoveredImage(service?.id)}
               onMouseLeave={() => setHoveredImage(null)}
-              key={list.id}
-              to={list.url}
+              key={service?.id}
+              to={`${service?.slug}/${service?.id}`}
             >
               <figure className="relative">
                 <div
                   style={{
                     background: `linear-gradient(180deg, transparent 0%, rgb(161, 196, 78))`,
-                    opacity: hoveredImage === list.id ? "100%" : "0",
+                    opacity: hoveredImage === service?.id ? "100%" : "0",
                     transition: "all ease-in-out 0.3s",
                     textShadow: "3px 3px 5px #000",
                   }}
@@ -47,21 +47,21 @@ export default function Service() {
                 </div>
                 <img
                   className="w-full h-full"
-                  src={list.image}
-                  alt={list.title}
+                  src={`${host}${service?.thumbnail_link}`}
+                  alt={service?.thumbnail_alt || ''}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
               <div className="mt-2">
-                <p className="text-[18px] xl:text-[22px] font-[500] leading-5">{list.title}</p>
-                <p className="xl:text-[18px] leading-5">{list.description}</p>
+                <p className="text-[18px] xl:text-[22px] font-[500] leading-5">{service?.title}</p>
+                <p className="xl:text-[18px] leading-5">{service?.description}</p>
               </div>
             </Link>
           ))}
         </div>
         <Link
-          to="#"
+          to="/service"
           className="bg-[#004500] max-xl:bg-[#537A53] w-fit flex items-center gap-2 m-auto p-2 rounded-[5px] hover:scale-110 text-[#fff] text-[18px] transition-all ease-in-out duration-300"
         >
           More

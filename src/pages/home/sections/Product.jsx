@@ -6,7 +6,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Product() {
+export default function Product({ host, homeProduct }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
@@ -35,40 +35,40 @@ export default function Product() {
           data-aos-duration="1000"
           className="grid grid-cols-4 max-xl:grid-cols-2 gap-4 mt-12"
         >
-          {ProductData.lists.map((list) => (
+          {homeProduct?.map((product) => (
             <Link
-              onMouseEnter={() => setHoveredImage(list.id)}
+              onMouseEnter={() => setHoveredImage(product?.id)}
               onMouseLeave={() => setHoveredImage(null)}
-              to={list.url}
-              key={list.id}
+              to={`${product?.slug}/${product?.id}`}
+              key={product?.id}
             >
-              <figure className="bg-[#fff] max-xl:bg-[#a5c5a5] relative rounded-full">
+              <figure className="max-w-[248px] h-[248px] m-auto bg-[#fff] relative xs:rounded-full">
                 <div
                   style={{
                     background: `linear-gradient(180deg, transparent 0%, rgb(161, 196, 78))`,
-                    opacity: hoveredImage === list.id ? "100%" : "0",
+                    opacity: hoveredImage === product.id ? "100%" : "0",
                     transition: "all ease-in-out 0.3s",
                     textShadow: "3px 3px 5px #000",
                   }}
-                  className="w-full h-full absolute top-0 left-0 flex flex-col justify-center items-center rounded-full text-[#fff] text-[20px] font-[300]"
+                  className="w-full h-full absolute top-0 left-0 flex flex-col justify-center items-center xs:rounded-full text-[#fff] text-[20px] font-[300]"
                 >
                   Detail
                   <VisibilityIcon sx={{ fontSize: "30px" }} />
                 </div>
                 <img
-                  className="w-full h-full"
-                  src={list.image}
-                  alt={list.title}
+                  className="w-full h-full object-cover xs:rounded-full p-1"
+                  src={`${host}${product?.thumbnail_link}`}
+                  alt={product?.thumbnail_alt || ''}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
-              <p className="mt-2 text-[18px] xl:text-[22px] font-[500]">{list.title}</p>
+              <p className="mt-2 text-[18px] xl:text-[22px] font-[500]">{product?.title}</p>
             </Link>
           ))}
         </div>
         <Link
-          to="#"
+          to="/product"
           className="bg-[#004500] max-xl:bg-[#537A53] w-fit flex items-center gap-2 m-auto mt-12 p-2 rounded-[5px] hover:scale-110 text-[#fff] text-[18px] transition-all ease-in-out duration-300"
         >
           More

@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
-export default function Banner() {
+export default function Banner({ host, homeData }) {
   useEffect(() => {
     Aos.init();
   }, []);
@@ -22,8 +22,8 @@ export default function Banner() {
             className="w-full xl:w-1/2 flex max-xl:justify-center"
           >
             <img
-              src={BannerData.logo}
-              alt={BannerData.h1}
+              src={`${host}${homeData[0]?.image_link}` || BannerData.logo}
+              alt={homeData[0]?.image_description || BannerData.h1}
               width={"auto"}
               height={"auto"}
             />
@@ -35,9 +35,11 @@ export default function Banner() {
           >
             <h1 className="hidden">ชอุ่ม 2021 จำกัด | CHA UM 2021 CO.,LTD</h1>
             <p className="max-xl:text-[#537A53] text-6xl max-xl:text-4xl font-[700] leading-[55px]">
-              {BannerData.title}
+              {homeData[0]?.title || BannerData.title}
             </p>
-            <p className="text-[18px] leading-5">{BannerData.description}</p>
+            <p className="text-[18px] leading-5">
+              {homeData[0]?.description || BannerData.description}
+            </p>
           </div>
         </div>
       </div>
@@ -45,17 +47,16 @@ export default function Banner() {
         className="mySwiper"
         slidesPerView={1}
         speed={1000}
-        loop={true}
         draggable={true}
         modules={[Navigation]}
       >
-        {BannerData.lists.map((list) => (
-          <SwiperSlide key={list.id}>
+        {homeData[0]?.subpost.map((post) => (
+          <SwiperSlide key={post?.id}>
             <figure>
               <img
                 className="w-full max-md:h-[280px] max-md:object-cover"
-                src={list.image}
-                alt={BannerData.h1}
+                src={`${host}${post?.image_link}`}
+                alt={post?.image_description}
                 width={"auto"}
                 height={"auto"}
               />

@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
 import { FooterData } from "../../data/footer/FooterData";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Footer() {
+export default function Footer({ host }) {
+  const [footer, setFooter] = useState([])
+
+  async function getFooter() {
+    const response = await axios.get(`${host}api/backoffice/v1/footer/read`);
+    const menu = response.data.menu
+    setFooter(menu)
+  }
+
+  useEffect(() => {
+    getFooter();
+  }, [])
+
+  console.log(footer);
+
   return (
     <footer>
       <div className="bg-[url('/images/footer/dec-bg-2.png')] xs:bg-[url('/images/footer/dec-bg-1.png')] bg-cover bg-center relative p-4">
@@ -39,23 +55,23 @@ export default function Footer() {
               {FooterData.address}
             </p>
           </div>
-          <div className="w-full flex xl:flex-col max-xl:justify-between max-xs:justify-center items-center max-xl:items-start gap-4 xl:gap-1 max-xs:gap-12 m-auto z-10">
-            <div className="xs:w-[35%]">
+          <div className="w-full flex max-xs:flex-col max-xs:items-center xl:flex-col max-xl:justify-between max-xs:justify-center items-center max-xl:items-start gap-4 xl:gap-1 max-xs:gap-12 m-auto z-10">
+            <div className="w-full">
               <p className="text-white xs:text-[#4C873C] text-[18px] xl:text-[22px] font-[500]">
                 บริการของเรา
               </p>
-              {FooterData.services.map((service) => (
+              {footer.map((footer) => (
                 <Link
-                  key={service.id}
-                  to={service.url}
+                  key={footer?.id}
+                  to={"/" + footer.slug}
                   className="w-full flex justify-start gap-4 max-xs:text-white hover:text-[#D30000] xl:text-[18px]"
                 >
                   <span>{"•"}</span>
-                  {service.title}
+                  {footer?.title}
                 </Link>
               ))}
             </div>
-            <div className="xs:w-full xl:hidden flex max-xs:flex-col justify-between items-center gap-4 leading-4">
+            <div className="xs:w-full xl:hidden max-md:flex-col flex max-xs:flex-col justify-between items-center gap-4 leading-4">
               <figure className="max-xs:hidden">
                 <img
                   src={FooterData.cer_1}
@@ -170,14 +186,15 @@ export default function Footer() {
                 />
                 <figure className="flex gap-4 items-center mt-2">
                   <img
-                    className="max-xs:hidden"
+                    className="max-xs:hidden cursor-pointer"
                     src={FooterData.line}
                     alt="Line"
                     width={"auto"}
                     height={"auto"}
                   />
                   <img
-                    className="max-xs:hidden"
+                    onClick={() => window.open("https://www.facebook.com/rachane999/", "_blank")}
+                    className="max-xs:hidden cursor-pointer"
                     src={FooterData.fb}
                     alt="Facebook"
                     width={"auto"}

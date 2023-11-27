@@ -5,7 +5,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Lists() {
+export default function Lists({ host, services }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
@@ -32,18 +32,18 @@ export default function Lists() {
           data-aos-duration="1000"
           className="grid grid-cols-4 max-xl:grid-cols-2 gap-x-12 xl:gap-x-24 gap-y-8 mt-12"
         >
-          {ListsData.lists.map((list) => (
+          {services?.map((service) => (
             <Link
-              onMouseEnter={() => setHoveredImage(list.id)}
+              onMouseEnter={() => setHoveredImage(service?.id)}
               onMouseLeave={() => setHoveredImage(null)}
-              to={list.url}
-              key={list.id}
+              to={`/${service?.slug}/${service?.id}`}
+              key={service?.id}
             >
               <figure className="relative">
                 <div
                   style={{
                     background: `linear-gradient(180deg, transparent 0%, rgb(161, 196, 78))`,
-                    opacity: hoveredImage === list.id ? "100%" : "0",
+                    opacity: hoveredImage === service?.id ? "100%" : "0",
                     transition: "all ease-in-out 0.3s",
                     textShadow: "3px 3px 5px #000",
                   }}
@@ -54,18 +54,19 @@ export default function Lists() {
                 </div>
 
                 <img
-                  src={list.image}
-                  alt={list.title}
+                  className="w-[248px] h-[248px] object-cover"
+                  src={`${host}${service?.thumbnail_link}`}
+                  alt={service?.thumbnail_alt || ''}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
               <div>
                 <p className="mt-2 text-[18px] xl:text-[22px] font-[500] leading-5">
-                  {list.title}
+                  {service?.title}
                 </p>
-                <p className="xl:text-[18px] font-[300]">{list.description}</p>
-                <p className="text-[#4C873C] xl:text-[18px]">{list.price}</p>
+                <p className="xl:text-[18px] font-[300]">{service?.description}</p>
+                <p className="text-[#4C873C] xl:text-[18px]">{service?.type}</p>
               </div>
             </Link>
           ))}

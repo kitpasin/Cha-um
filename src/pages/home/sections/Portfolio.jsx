@@ -6,7 +6,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-export default function Portfolio() {
+export default function Portfolio({ host, homePortfolio }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
@@ -33,18 +33,18 @@ export default function Portfolio() {
           data-aos-duration="1000"
           className="grid grid-cols-4 max-xl:grid-cols-2 gap-4"
         >
-          {PortfolioData.lists.map((list) => (
+          {homePortfolio?.map((portfolio) => (
             <Link
-              onMouseEnter={() => setHoveredImage(list.id)}
+              onMouseEnter={() => setHoveredImage(portfolio?.id)}
               onMouseLeave={() => setHoveredImage(null)}
-              key={list.id}
-              to={list.url}
+              key={portfolio?.id}
+              to={`${portfolio?.slug}/${portfolio?.id}`}
             >
               <figure className="relative">
                 <div
                   style={{
                     background: `linear-gradient(180deg, transparent 0%, rgb(161, 196, 78))`,
-                    opacity: hoveredImage === list.id ? "100%" : "0",
+                    opacity: hoveredImage === portfolio?.id ? "100%" : "0",
                     transition: "all ease-in-out 0.3s",
                     textShadow: "3px 3px 5px #000",
                   }}
@@ -55,21 +55,21 @@ export default function Portfolio() {
                 </div>
                 <img
                   className="w-full h-full"
-                  src={list.image}
-                  alt={list.title}
+                  src={`${host}${portfolio?.thumbnail_link}`}
+                  alt={portfolio?.thumbnail_alt || ''}
                   width={"auto"}
                   height={"auto"}
                 />
               </figure>
               <div className="mt-2">
-                <p className="text-[18px] xl:text-[22px] font-[500] leading-5">{list.title}</p>
-                <p className="xl:text-[18px] leading-5">{list.description}</p>
+                <p className="text-[18px] xl:text-[22px] font-[500] leading-5">{portfolio?.title}</p>
+                <p className="xl:text-[18px] leading-5">{portfolio?.description}</p>
               </div>
             </Link>
           ))}
         </div>
         <Link
-          to="#"
+          to="/portfolio"
           className="bg-[#004500] max-xl:bg-[#537A53] w-fit flex items-center gap-2 m-auto p-2 rounded-[5px] hover:scale-110 text-[#fff] text-[18px] z-10 transition-all ease-in-out duration-300"
         >
           More
