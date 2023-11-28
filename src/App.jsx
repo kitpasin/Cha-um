@@ -43,7 +43,7 @@ import PruningAndCutdownDetail from "./pages/service/pruning&cutdown/detail/Prun
 export default function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const location = useLocation();
-  const host = "https://chaum2021.com/"; 
+  const host = import.meta.env.VITE_API_BASE_URL; 
 
   // เช็คขนาดหน้าจอแล้วเก็บลง state windowWidth
   function handleResize() {
