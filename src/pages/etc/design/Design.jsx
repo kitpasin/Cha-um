@@ -1,8 +1,9 @@
-import { Helmet } from 'react-helmet-async'
-import React, { useEffect, useState } from 'react'
-import Banner from './sections/Banner'
-import Lists from './sections/Lists'
-import axios from 'axios';
+import { Helmet } from "react-helmet-async";
+import React, { useEffect, useState } from "react";
+import Banner from "./sections/Banner";
+import Lists from "./sections/Lists";
+import axios from "axios";
+import { PulseLoader } from "react-spinners";
 
 export default function Design({ host }) {
   const [loading, setLoading] = useState(true);
@@ -21,8 +22,6 @@ export default function Design({ host }) {
     getDesign().then(() => setLoading(false));
   }, []);
 
-  console.log(designs);
-
   return (
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
@@ -35,13 +34,20 @@ export default function Design({ host }) {
         />
         <link rel="canonical" href="/etc/design" />
       </Helmet>
-      
-      <section id="banner">
-        <Banner host={host} banner={banner} />
-      </section>
-      <section id="lists">
-        <Lists host={host} designs={designs}/>
-      </section>
+      {!loading ? (
+        <>
+          <section id="banner">
+            <Banner host={host} banner={banner} />
+          </section>
+          <section id="lists">
+            <Lists host={host} designs={designs} />
+          </section>
+        </>
+      ) : (
+        <div className="w-full h-[calc(100vh-70px)] flex justify-center items-center">
+          <PulseLoader color="#004500" />
+        </div>
+      )}
     </main>
-  )
+  );
 }

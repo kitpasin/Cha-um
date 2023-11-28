@@ -2,7 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-export default function Form() {
+export default function Form({ host }) {
   // state สำหรับเก็บ input ใน form
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ export default function Form() {
     if (name && email && subject && message) {
       await axios
         .post(
-          `http://localhost:8000/api/backoffice/v1/message/create`,
+          `${host}api/backoffice/v1/message/create`,
           formData
         )
         .then((response) => {

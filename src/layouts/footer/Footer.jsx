@@ -16,8 +16,6 @@ export default function Footer({ host }) {
     getFooter();
   }, [])
 
-  console.log(footer);
-
   return (
     <footer>
       <div className="bg-[url('/images/footer/dec-bg-2.png')] xs:bg-[url('/images/footer/dec-bg-1.png')] bg-cover bg-center relative p-4">

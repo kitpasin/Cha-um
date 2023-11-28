@@ -124,7 +124,7 @@ export default function App() {
         <Route path="/etc/design" element={<Design host={host} />} />
         <Route path="/etc/design/:id" element={<DesignDetail host={host} />} />
         {/* Contact */}
-        <Route path="/etc/contact" element={<Contact />} />
+        <Route path="/etc/contact" element={<Contact host={host} />} />
       </Routes>
       <Footer host={host} />
     </>
