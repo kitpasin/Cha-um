@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -8,46 +8,92 @@ export default function Form({ host }) {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [allowSendMessage, setAllowSendMessage] = useState(true);
+  const [second, setSecond] = useState(localStorage.getItem("count") || 0);
+
+  // ถ้า count บน localstorage != 0 ให้นับต่อ ถ้าไม่อนุญาตส่ง message
+  useEffect(() => {
+    if (second !== 0) {
+      countdown()
+      setAllowSendMessage(false)
+    } else {
+      setAllowSendMessage(true)
+    }
+  }, [])
+
+  // format email
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   // ตัวอย่างการใช้ axios post contact message
   async function handleSendMessage() {
-    const formData = {
-      name: name,
-      email: email,
-      subject: subject,
-      message: message,
-    };
-    if (name && email && subject && message) {
-      await axios
-        .post(
-          `${host}api/backoffice/v1/message/create`,
-          formData
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "ส่งข้อความสำเร็จ!",
-              text: "เราจะทำการติดต่อคุณกลับในภายหลัง",
-              showConfirmButton: true,
-              confirmButtonColor: "#004500",
-            });
-          }
+    if (allowSendMessage) {
+      const formData = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+      };
+      if (name && isValidEmail(email) && subject && message) {
+        await axios
+          .post(`${host}api/backoffice/v1/message/create`, formData)
+          .then((response) => {
+            if (response.status === 200) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "ส่งข้อความสำเร็จ!",
+                text: "เราจะทำการติดต่อคุณกลับในภายหลัง",
+                showConfirmButton: true,
+                confirmButtonColor: "#004500",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  setAllowSendMessage(false);
+                  countdown();
+                }
+              });
+            }
+          });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง",
+          showConfirmButton: true,
+          confirmButtonColor: "#004500",
         });
-      setName("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
+      }
     } else {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "กรุณากรอกข้อมูลให้ครบถ้วน",
+        title: "กรุณารอสักครู่ก่อนทำรายการใหม่",
+        html: `${second} วินาที`,
         showConfirmButton: true,
         confirmButtonColor: "#004500",
       });
     }
+  }
+
+  // counddown แนบเวลาใส่บน localstorage
+  function countdown() {
+    let count = parseInt(localStorage.getItem("count")) || 60;
+
+    const countdownInterval = setInterval(() => {
+      if (count === 0) {
+        clearInterval(countdownInterval);
+        localStorage.setItem("count", 60);
+        setAllowSendMessage(true);
+        console.log("Countdown complete!");
+      } else {
+        localStorage.setItem("count", count);
+        setAllowSendMessage(false);
+        setSecond(count);
+        count--;
+      }
+    }, 1000);
   }
 
   return (
