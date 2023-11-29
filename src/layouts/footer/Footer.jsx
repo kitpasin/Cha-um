@@ -3,18 +3,30 @@ import { FooterData } from "../../data/footer/FooterData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Footer({ host }) {
-  const [footer, setFooter] = useState([])
+export default function Footer({
+  host,
+  address,
+  district,
+  subdistrict,
+  province,
+  zipcode,
+  tel,
+  email,
+  facebook,
+  line,
+  copyright,
+}) {
+  const [footer, setFooter] = useState([]);
 
   async function getFooter() {
     const response = await axios.get(`${host}api/backoffice/v1/footer/read`);
-    const menu = response.data.menu
-    setFooter(menu)
+    const menu = response.data.menu;
+    setFooter(menu);
   }
 
   useEffect(() => {
     getFooter();
-  }, [])
+  }, []);
 
   return (
     <footer>
@@ -28,7 +40,7 @@ export default function Footer({ host }) {
             position: "absolute",
             top: 0,
             left: 0,
-            opacity: "50%"
+            opacity: "50%",
           }}
         />
         <div className="max-w-[650px] xl:max-w-[1280px] grid grid-cols-1 xl:grid-cols-3 items-center gap-4 m-auto">
@@ -50,7 +62,13 @@ export default function Footer({ host }) {
               />
             </figure>
             <p className="mt-4 text-[#004500] xl:text-[18px] max-xs:text-[#fff] max-xl:text-center">
-              {FooterData.address}
+              {address}
+              <br />
+              {district} {subdistrict} {province} {zipcode}
+              <br />
+              โทร : {tel}
+              <br />
+              อีเมล : {email}
             </p>
           </div>
           <div className="w-full flex max-xs:flex-col max-xs:items-center xl:flex-col max-xl:justify-between max-xs:justify-center items-center max-xl:items-start gap-4 xl:gap-1 max-xs:gap-12 m-auto z-10">
@@ -184,6 +202,12 @@ export default function Footer({ host }) {
                 />
                 <figure className="flex gap-4 items-center mt-2">
                   <img
+                    onClick={() =>
+                      window.open(
+                        `${line?.link}`,
+                        "_blank"
+                      )
+                    }
                     className="max-xs:hidden cursor-pointer"
                     src={FooterData.line}
                     alt="Line"
@@ -191,7 +215,12 @@ export default function Footer({ host }) {
                     height={"auto"}
                   />
                   <img
-                    onClick={() => window.open("https://www.facebook.com/rachane999/", "_blank")}
+                    onClick={() =>
+                      window.open(
+                        `${facebook?.link}`,
+                        "_blank"
+                      )
+                    }
                     className="max-xs:hidden cursor-pointer"
                     src={FooterData.fb}
                     alt="Facebook"
@@ -205,7 +234,7 @@ export default function Footer({ host }) {
         </div>
       </div>
       <div className="bg-[#618861] xl:bg-[#4C873C] text-[#fff] xl:text-[18px] text-center px-4 py-2">
-        <p>&copy; Copyright 2013-2023</p>
+        <p>{copyright}</p>
       </div>
     </footer>
   );

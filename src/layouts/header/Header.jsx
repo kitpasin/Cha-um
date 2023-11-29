@@ -5,7 +5,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
 
-export default function Header({ host, windowWidth }) {
+export default function Header({ host, windowWidth, logo, facebook, line }) {
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -69,7 +69,8 @@ export default function Header({ host, windowWidth }) {
       <div className="h-full max-w-[1280px] m-auto flex justify-between items-center">
         <Link to="/" className="max-xl:m-auto flex justify-center">
           <img
-            src="/images/header/logo.png"
+            className="w-[150px]"
+            src={`${host}${logo}`}
             alt="ชอุ่ม 2021 จำกัด | CHA UM 2021 CO.,LTD"
             width={"auto"}
             height={"auto"}
@@ -211,7 +212,7 @@ export default function Header({ host, windowWidth }) {
               </li>
             ))}
             <div className="max-xl:w-full flex items-center gap-4 max-xl:gap-3 max-xl:p-4 max-xl:border-b-[1px]">
-              <Link to="#">
+              <Link to={line?.link} target="_blank">
                 <img
                   src="/icons/line.png"
                   alt="Line icon"
@@ -219,7 +220,7 @@ export default function Header({ host, windowWidth }) {
                   height={"auto"}
                 />
               </Link>
-              <Link to="https://www.facebook.com/rachane999/" target="_blank">
+              <Link to={facebook?.link} target="_blank">
                 <img
                   src="/icons/facebook.png"
                   alt="Facebook icon"

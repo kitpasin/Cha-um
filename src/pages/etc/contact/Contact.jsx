@@ -5,7 +5,21 @@ import Form from "./sections/Form";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
 
-export default function Contact({ host }) {
+export default function Contact({
+  host,
+  company,
+  logo,
+  facebook,
+  line,
+  address,
+  district,
+  subdistrict,
+  province,
+  zipcode,
+  tel,
+  email,
+  googlemap
+}) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
 
@@ -37,7 +51,21 @@ export default function Contact({ host }) {
             <Banner host={host} banner={banner} />
           </section>
           <section id="form">
-            <Form host={host} />
+            <Form
+              host={host}
+              company={company}
+              logo={logo}
+              facebook={facebook}
+              line={line}
+              address={address}
+              district={district}
+              subdistrict={subdistrict}
+              province={province}
+              zipcode={zipcode}
+              tel={tel}
+              email={email}
+              googlemap={googlemap}
+            />
           </section>
         </>
       ) : (
