@@ -4,11 +4,17 @@ import Banner from "./sections/Banner";
 import Lists from "./sections/Lists";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
+import { useLocation } from "react-router-dom";
 
-export default function Portfolio({ host }) {
+export default function Portfolio({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
   const [portfolios, setPortfolios] = useState([]);
+  const location = useLocation()
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = location.pathname ? website.cate_url === location.pathname.replace("/", "") : true;
+    return matchesUrl
+  })
 
   async function getPortfolio() {
     const response = await axios.get(`${host}api/backoffice/v1/portfolio/read`);
@@ -26,7 +32,7 @@ export default function Portfolio({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | ผลงานของเรา</title>
+        <title>{filterTitle[0]?.cate_description || "ผลงานของเรา"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

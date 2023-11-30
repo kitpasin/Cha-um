@@ -40,8 +40,12 @@ import SolarcellDetail from "./pages/service/solarcell/detail/SolarcellDetail";
 import PruningAndCutdown from "./pages/service/pruning&cutdown/PruningAndCutdown";
 import PruningAndCutdownDetail from "./pages/service/pruning&cutdown/detail/PruningAndCutdownDetail";
 import axios from "axios";
+import Organizing from "./pages/service/organizing/Organizing";
+import OrganizingDetail from "./pages/service/organizing/detail/OrganizingDetail";
 
 export default function App() {
+  const [mainWebsiteTitle, setMainWebsiteTitle] = useState([])
+  const [subWebsiteTitle, setSubWebsiteTitle] = useState([])
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [company, setCompany] = useState([])
   const [logo, setLogo] = useState([]);
@@ -62,6 +66,8 @@ export default function App() {
   // รายละเอียดเว็บไซต์จากหลังบ้าน
   async function getWebinfo() {
     const response = await axios.get(`${host}api/backoffice/v1/webinfo/read`);
+    const maintitle = response.data.data.mainCate
+    const subtitle = response.data.data.subCate
     const company = response.data.data.details.companyname.value
     const logo = response.data.data.details.image_1.link;
     const facebook = response.data.data.info[15];
@@ -75,6 +81,8 @@ export default function App() {
     const tel = response.data.data.info[17].value;
     const email = response.data.data.info[8].value;
     const copyright = response.data.data.info[18].value;
+    setMainWebsiteTitle(maintitle)
+    setSubWebsiteTitle(subtitle)
     setCompany(company)
     setLogo(logo);
     setFacebook(facebook);
@@ -108,8 +116,6 @@ export default function App() {
     });
   }, [location.pathname]);
 
-  console.log(company);
-
   return (
     <>
       <Header
@@ -121,101 +127,110 @@ export default function App() {
       />
       <Routes>
         {/* Home */}
-        <Route path="/" element={<Home host={host} />} />
+        <Route path="/" element={<Home host={host} websiteTitle={mainWebsiteTitle} />} />
         {/* Product */}
-        <Route path="/product" element={<Product host={host} />} />
+        <Route path="/product" element={<Product host={host} websiteTitle={mainWebsiteTitle} />} />
         <Route
           path="/product/material&tool"
-          element={<MaterialAndTool host={host} />}
+          element={<MaterialAndTool host={host} websiteTitle={subWebsiteTitle} />}
         />
         <Route
           path="/product/material&tool/:id"
           element={<MaterialAndToolDetail host={host} />}
         />
-        <Route path="/product/equipment" element={<Equipment host={host} />} />
+        <Route path="/product/equipment" element={<Equipment host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/product/equipment/:id"
           element={<EquipmentDetail host={host} />}
         />
-        <Route path="/product/specie" element={<Specie host={host} />} />
+        <Route path="/product/specie" element={<Specie host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/product/specie/:id"
           element={<SpecieDetail host={host} />}
         />
-        <Route path="/product/packaging" element={<Packaging host={host} />} />
+        <Route path="/product/packaging" element={<Packaging host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/product/packaging/:id"
           element={<PackagingDetail host={host} />}
         />
         {/* Portfolio */}
-        <Route path="/portfolio" element={<Portfolio host={host} />} />
+        <Route path="/portfolio" element={<Portfolio host={host} websiteTitle={mainWebsiteTitle} />} />
         <Route
           path="/portfolio/:id"
           element={<PortfolioDetail host={host} />}
         />
         {/* Service */}
-        <Route path="/service" element={<Service host={host} />} />
-        <Route path="/service/park" element={<Park host={host} />} />
+        <Route path="/service" element={<Service host={host} websiteTitle={mainWebsiteTitle} />} />
+        <Route path="/service/park" element={<Park host={host} websiteTitle={subWebsiteTitle} />} />
         <Route path="/service/park/:id" element={<ParkDetail host={host} />} />
         <Route
           path="/service/airside&landside"
-          element={<AirsideAndLandside host={host} />}
+          element={<AirsideAndLandside host={host} websiteTitle={subWebsiteTitle} />}
         />
         <Route
           path="/service/airside&landside/:id"
           element={<AirsideAndLandsideDetail host={host} />}
         />
-        <Route path="/service/improve" element={<Improve host={host} />} />
+        <Route path="/service/improve" element={<Improve host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/service/improve/:id"
           element={<ImproveDetail host={host} />}
         />
-        <Route path="/service/garden" element={<Garden host={host} />} />
+        <Route path="/service/garden" element={<Garden host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/service/garden/:id"
           element={<GardenDetail host={host} />}
         />
-        <Route path="/service/cleaning" element={<Cleaning host={host} />} />
+        <Route path="/service/cleaning" element={<Cleaning host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/service/cleaning/:id"
           element={<CleaningDetail host={host} />}
         />
-        <Route path="/service/protect" element={<Protect host={host} />} />
+        <Route path="/service/protect" element={<Protect host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/service/protect/:id"
           element={<ProtectDetail host={host} />}
         />
-        <Route path="/service/solarcell" element={<Solarcell host={host} />} />
+        <Route path="/service/solarcell" element={<Solarcell host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/service/solarcell/:id"
           element={<SolarcellDetail host={host} />}
         />
         <Route
           path="/service/pruning&cutdown"
-          element={<PruningAndCutdown host={host} />}
+          element={<PruningAndCutdown host={host} websiteTitle={subWebsiteTitle} />}
         />
         <Route
           path="/service/pruning&cutdown/:id"
           element={<PruningAndCutdownDetail host={host} />}
         />
+        <Route
+          path="/service/organizing"
+          element={<Organizing host={host} websiteTitle={subWebsiteTitle} />}
+        />
+        <Route
+          path="/service/organizing/:id"
+          element={<OrganizingDetail host={host} />}
+        />
         {/* Process */}
-        <Route path="/process" element={<Process host={host} />} />
-        <Route path="/process/turnkey" element={<Turnkey host={host} />} />
-        <Route path="/process/landscape" element={<Landscape host={host} />} />
-        <Route path="/process/planting" element={<Planting host={host} />} />
+        <Route path="/process" element={<Process host={host} websiteTitle={mainWebsiteTitle} />} />
+        <Route path="/process/turnkey" element={<Turnkey host={host} websiteTitle={subWebsiteTitle} />} />
+        <Route path="/process/landscape" element={<Landscape host={host} websiteTitle={subWebsiteTitle} />} />
+        <Route path="/process/planting" element={<Planting host={host} websiteTitle={subWebsiteTitle} />} />
         <Route
           path="/process/maintenance"
-          element={<Maintenance host={host} />}
+          element={<Maintenance host={host} websiteTitle={subWebsiteTitle} />}
         />
         {/* Design */}
-        <Route path="/etc/design" element={<Design host={host} />} />
-        <Route path="/etc/design/:id" element={<DesignDetail host={host} />} />
+        <Route path="/etc/design" element={<Design host={host} websiteTitle={subWebsiteTitle} />} />
+        <Route path="/etc/design/:id" element={<DesignDetail host={host} websiteTitle={subWebsiteTitle} />} />
         {/* Contact */}
         <Route
           path="/etc/contact"
           element={
             <Contact
               host={host}
+              websiteTitle={subWebsiteTitle}
               company={company}
               logo={logo}
               facebook={facebook}

@@ -5,12 +5,18 @@ import Submenu from "./sections/Submenu";
 import Recoment from "./sections/Recoment";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
+import { useLocation } from "react-router-dom";
 
-export default function Product({ host }) {
+export default function Product({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [productBanner, setProductBanner] = useState([]);
   const [productSubmenu, setProductSubmenu] = useState([]);
   const [productRecoment, setProductRecoment] = useState([]);
+  const location = useLocation()
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = location.pathname ? website.cate_url === location.pathname.replace("/", "") : true;
+    return matchesUrl
+  })
 
   async function getProduct() {
     const response = await axios.get(`${host}api/backoffice/v1/product/read`);
@@ -30,7 +36,7 @@ export default function Product({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | สินค้าของเรา</title>
+        <title>{filterTitle[0]?.cate_description || "สินค้าของเรา"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

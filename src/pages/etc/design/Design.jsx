@@ -5,10 +5,16 @@ import Lists from "./sections/Lists";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
 
-export default function Design({ host }) {
+export default function Design({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
   const [designs, setDesigns] = useState([]);
+  const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
+
 
   async function getDesign() {
     const response = await axios.get(`${host}api/backoffice/v1/design/read`);
@@ -26,7 +32,7 @@ export default function Design({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | Design</title>
+        <title>{filterTitle[0]?.cate_description || "Design"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

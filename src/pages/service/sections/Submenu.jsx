@@ -13,14 +13,14 @@ export default function Submenu({ host, submenu }) {
       <div
         data-aos="fade-right"
         data-aos-duration="1000"
-        className="max-w-[650px] xl:max-w-[1280px] grid grid-cols-2 xl:grid-cols-4 gap-x-12 xl:gap-x-24 gap-y-8 m-auto text-center"
+        className="max-w-[650px] xl:max-w-[1280px] grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-8 xl:gap-x-12 gap-y-8 m-auto text-center"
       >
         {submenu.map((submenu) => (
           <div key={submenu?.id}>
             <Link to={`/${submenu?.cate_url}`}>
-              <figure className="rounded-full overflow-hidden">
+              <figure className="m-auto xs:rounded-full overflow-hidden">
                 <img
-                  className="w-[248px] h-[248px] m-auto object-cover xs:rounded-full hover:scale-110 transition-all ease-in-out duration-300"
+                  className="w-[200px] h-[200px] m-auto object-cover xs:rounded-full hover:scale-110 transition-all ease-in-out duration-300"
                   src={`${host}${submenu?.thumbnail_link}`}
                   alt={submenu?.thumbnail_alt || ''}
                   width={"auto"}

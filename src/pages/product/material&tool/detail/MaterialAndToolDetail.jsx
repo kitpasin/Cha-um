@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 import { Helmet } from "react-helmet-async";
 import { PulseLoader } from "react-spinners";
 
-export default function MaterialAndToolDetail({ host }) {
+export default function MaterialAndToolDetail({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [productDetail, setProductDetail] = useState([]);
   const [openMainImage, setOpenMainImage] = useState(false);
@@ -19,8 +19,8 @@ export default function MaterialAndToolDetail({ host }) {
     useState("");
   // ใช้ useLocation เพื่อเก็บ ไอดีบน url
   const location = useLocation();
-  const pathname = location.pathname.split("/");
-  const productId = pathname[pathname.length - 1];
+  const url = location.pathname.split("/");
+  const productId = url[url.length - 1];
 
   // ตัวอย่างการใช้ axios รับ product detail จาก api
   async function getProductDetail(productId) {
@@ -63,13 +63,13 @@ export default function MaterialAndToolDetail({ host }) {
     <>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | วัสดุ และอุปกรณ์การเกษตร</title>
+        <title>{productDetail[0]?.title || "วัสดุ และอุปกรณ์การเกษตร"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"
           data-rh="true"
         />
-        <link rel="canonical" href="/product/material&tool" />
+        <link rel="canonical" href={`/product/material&tool/${productDetail[0]?.id}`} />
       </Helmet>
       {!loading ? (
       <div className="relative md:pt-12 md:pb-24 lg:pb-36 xl:pb-48 2xl:pb-60">

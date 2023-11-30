@@ -6,12 +6,16 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-export default function Specie({ host }) {
+export default function Specie({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
 
   async function getProductByCategory() {
     const formdata = {
@@ -35,7 +39,7 @@ export default function Specie({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | พันธ์ุพืช และ พันธ์ุสัตว์</title>
+        <title>{filterTitle[0]?.cate_description || "พันธ์ุพืช และ พันธ์ุสัตว์"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

@@ -6,12 +6,16 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
 
-export default function AirsideAndLandside({ host }) {
+export default function AirsideAndLandside({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
   const [services, setServices] = useState([]);
   const location = useLocation();
   const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
 
   async function getServiceByCategories() {
     const formdata = {
@@ -31,13 +35,11 @@ export default function AirsideAndLandside({ host }) {
     getServiceByCategories().then(() => setLoading(false));
   }, []);
 
-  console.log(services)
-
   return (
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | ตัดหญ้า Airside  และ Landside</title>
+        <title>{filterTitle[0]?.cate_description || "ตัดหญ้า Airside  และ Landside"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

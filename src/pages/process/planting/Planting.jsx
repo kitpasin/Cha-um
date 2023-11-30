@@ -6,11 +6,15 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
 
-export default function Planting({ host }) {
+export default function Planting({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [process, setProcess] = useState([]);
   const location = useLocation();
   const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
 
   async function getProcessByCategories() {
     const formdata = {
@@ -32,7 +36,7 @@ export default function Planting({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | PLANTING AND CONSTRUCTION SERVICES</title>
+        <title>{filterTitle[0]?.cate_description || "PLANTING AND CONSTRUCTION SERVICES"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

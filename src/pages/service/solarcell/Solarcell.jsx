@@ -6,12 +6,16 @@ import { useLocation } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
 
-export default function Solarcell({ host }) {
+export default function Solarcell({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
   const [services, setServices] = useState([]);
   const location = useLocation();
   const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
 
   async function getServiceByCategories() {
     const formdata = {
@@ -35,7 +39,7 @@ export default function Solarcell({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | บริการติดตั้งระบบโซล่าเซลล์</title>
+        <title>{filterTitle[0]?.cate_description || "บริการติดตั้งระบบโซล่าเซลล์"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

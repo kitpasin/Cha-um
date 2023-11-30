@@ -7,6 +7,7 @@ import { PulseLoader } from "react-spinners";
 
 export default function Contact({
   host,
+  websiteTitle,
   company,
   logo,
   facebook,
@@ -22,6 +23,11 @@ export default function Contact({
 }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
+  const url = location.pathname.replace("/", "");
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = url ? website.cate_url === url : true;
+    return matchesUrl
+  })
 
   async function getContactBanner() {
     const response = await axios.get(`${host}api/backoffice/v1/contact/read`);
@@ -37,7 +43,7 @@ export default function Contact({
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | Contact us</title>
+        <title>{filterTitle[0]?.cate_description || "Contact us"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

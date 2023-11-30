@@ -8,14 +8,20 @@ import Product from "./sections/Product";
 import Portfolio from "./sections/Portfolio";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
+import { useLocation } from "react-router-dom";
 
-export default function Home({ host }) {
+export default function Home({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [homeData, setHomeData] = useState([]);
   const [homeExample, setHomeExample] = useState([]);
   const [homeService, setHomeService] = useState([]);
   const [homeProduct, setHomeProduct] = useState([]);
   const [homePortfolio, setHomePortfolio] = useState([]);
+  const location = useLocation()
+  const filterTitle = websiteTitle.filter((website) => {
+    const matchesUrl = location.pathname ? website.cate_url === location.pathname : true;
+    return matchesUrl
+  })
 
   async function getHome() {
     const response = await axios.get(`${host}api/backoffice/v1/home/read`);
@@ -39,7 +45,7 @@ export default function Home({ host }) {
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | หน้าแรก</title>
+        <title>{filterTitle[0]?.cate_description || "หน้าแรก"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

@@ -1,63 +1,56 @@
 import { Helmet } from "react-helmet-async";
 import React, { useEffect, useState } from "react";
 import Banner from "./sections/Banner";
-import Submenu from "./sections/Submenu";
-import Example from "./sections/Example";
 import Lists from "./sections/Lists";
 import axios from "axios";
-import { PulseLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
+import { PulseLoader } from "react-spinners";
 
-export default function Service({ host, websiteTitle }) {
+export default function Organizing({ host, websiteTitle }) {
   const [loading, setLoading] = useState(true);
   const [banner, setBanner] = useState([]);
-  const [submenu, setSubmenu] = useState([]);
-  const [example, setExample] = useState([]);
   const [services, setServices] = useState([]);
-  const location = useLocation()
+  const location = useLocation();
+  const url = location.pathname.replace("/", "");
   const filterTitle = websiteTitle.filter((website) => {
-    const matchesUrl = location.pathname ? website.cate_url === location.pathname.replace("/", "") : true;
+    const matchesUrl = url ? website.cate_url === url : true;
     return matchesUrl
   })
 
-  async function getPortfolio() {
-    const response = await axios.get(`${host}api/backoffice/v1/service/read`);
+  async function getServiceByCategories() {
+    const formdata = {
+      url: url,
+    };
+    const response = await axios.post(
+      `${host}api/backoffice/v1/service/category/read`,
+      formdata
+    );
     const banner = response.data.banner;
-    const submenu = response.data.submenu;
-    const example = response.data.example;
-    const list = response.data.list;
+    const services = response.data.service;
     setBanner(banner);
-    setSubmenu(submenu);
-    setExample(example);
-    setServices(list);
+    setServices(services);
   }
 
   useEffect(() => {
-    getPortfolio().then(() => setLoading(false));
+    getServiceByCategories().then(() => setLoading(false));
   }, []);
 
   return (
     <main>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>{filterTitle[0]?.cate_description || "บริการของเรา"}</title>
+        <title>{filterTitle[0]?.cate_description || "บริการจัดงานมหกรรม แสงสีเสียง และงานประติมากรรม"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"
           data-rh="true"
         />
-        <link rel="canonical" href="/service" />
+        <link rel="canonical" href="/service/organizing" />
       </Helmet>
       {!loading ? (
         <>
           <section id="banner">
             <Banner host={host} banner={banner} />
-          </section>
-          <section id="submenu">
-            <Submenu host={host} submenu={submenu} />
-          </section>
-          <section id="example">
-            <Example host={host} example={example} />
           </section>
           <section id="lists">
             <Lists host={host} services={services} />

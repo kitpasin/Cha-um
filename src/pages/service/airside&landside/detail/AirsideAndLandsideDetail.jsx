@@ -58,7 +58,7 @@ export default function AirsideAndLandsideDetail({ host }) {
     <>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | ตัดหญ้า Airside  และ Landside</title>
+        <title>{serviceDetail[0]?.title || "ตัดหญ้า Airside และ Landside"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"

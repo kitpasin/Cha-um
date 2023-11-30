@@ -58,13 +58,13 @@ export default function PruningAndCutdownDetail({ host }) {
     <>
       {/* ทำ seo หน้าหลักใน helmet นี้ */}
       <Helmet>
-        <title>ชอุ่ม 2021 จำกัด | บริการตัดแต่ง และโค่นต้นไม่ใหญ่</title>
+        <title>{serviceDetail[0]?.title || "บริการตัดแต่ง และโค่นต้นไม่ใหญ่"}</title>
         <meta
           name="description"
           content="เรามุ่งมั่นสร้างสรรค์ผลงานที่เป็นเลิศ"
           data-rh="true"
         />
-        <link rel="canonical" href="/service/pruning&cutdown" />
+        <link rel="canonical" href={`/service/pruning&cutdown/${serviceDetail[0]?.id}`} />
       </Helmet>
       {!loading ? (
         <div className="relative md:pt-12 md:pb-24 lg:pb-36 xl:pb-48 2xl:pb-60">
