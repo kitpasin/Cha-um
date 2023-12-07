@@ -9,6 +9,8 @@ import "aos/dist/aos.css";
 export default function Portfolio({ host, homePortfolio }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
+  console.log(homePortfolio)
+
   useEffect(() => {
     Aos.init();
   }, []);
@@ -38,7 +40,7 @@ export default function Portfolio({ host, homePortfolio }) {
               onMouseEnter={() => setHoveredImage(portfolio?.id)}
               onMouseLeave={() => setHoveredImage(null)}
               key={portfolio?.id}
-              to={`${portfolio?.slug}/${portfolio?.id}`}
+              to={`portfolio/${portfolio?.id}`}
             >
               <figure className="relative">
                 <div
